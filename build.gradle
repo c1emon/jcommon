@@ -1,0 +1,85 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+	id 'maven-publish'
+}
+
+group = 'cn.com.fxelec'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+jar {
+	archiveFileName = "app.jar"
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+	maven {
+		url 'https://maven.aliyun.com/repository/public'
+	}
+	maven {
+		credentials {
+			username '634e4f8c5da2592283036a0a'
+			password 'zC[Ny2)]TRBb'
+		}
+		url 'https://packages.aliyun.com/maven/repository/2292782-release-Hhylnv/'
+	}
+	maven {
+		credentials {
+			username '634e4f8c5da2592283036a0a'
+			password 'zC[Ny2)]TRBb'
+		}
+		url 'https://packages.aliyun.com/maven/repository/2292782-snapshot-raaRk8/'
+	}
+}
+
+dependencies {
+	implementation 'icu.clemon:common:v0.1.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'log4j:log4j:1.2.17'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+publishing {
+	publications {
+		Production(MavenPublication) {
+			groupId = project.group
+			artifactId = project.name
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			name = "AliNexus"
+			def releasesRepoUrl = 'https://packages.aliyun.com/maven/repository/2292782-release-Hhylnv/'
+			def snapshotsRepoUrl = 'https://packages.aliyun.com/maven/repository/2292782-snapshot-raaRk8/'
+			url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+			credentials {
+				username '634e4f8c5da2592283036a0a'
+				password 'zC[Ny2)]TRBb'
+			}
+		}
+	}
+}
