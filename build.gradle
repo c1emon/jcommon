@@ -1,21 +1,37 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.5'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-    id 'com.palantir.git-version' version '0.15.0'
-    id 'maven-publish'
+    id 'org.springframework.boot' version '3.0.2'
+    id 'io.spring.dependency-management' version '1.1.0'
     id 'java-library'
+    id 'maven-publish'
+    id 'com.palantir.git-version' version '1.0.0'
 }
 
 group = 'icu.clemon'
 version = gitVersion()
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
+def repos = [
+        aliyunMavenPublic: [
+                url: "https://maven.aliyun.com/repository/public"
+        ],
+        aliyunMavenRelease: [
+                url: "https://packages.aliyun.com/maven/repository/xxxx-release-xxxx/",
+                username: "xxxxxx",
+                password: "xxxxxx"
+        ],
+        aliyunMavenSnapshot: [
+                url: "https://packages.aliyun.com/maven/repository/xxxx-snapshot-xxxx/",
+                username: "xxxxxxxx",
+                password: "xxxxxxxx"
+        ]
+]
+
+def lombok = "org.projectlombok:lombok"
 
 repositories {
+    mavenLocal()
+    maven {
+        url repos.aliyunMavenPublic.url
+    }
     mavenCentral()
 }
 
@@ -23,9 +39,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    compileOnly 'org.projectlombok:lombok'
+
+    compileOnly lombok
+    annotationProcessor lombok
+    testCompileOnly lombok
+    testAnnotationProcessor lombok
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
@@ -48,18 +68,15 @@ publishing {
                 }
             }
             from components.java
-
         }
     }
     repositories {
         maven {
-            name = "AliNexus"
-            def releasesRepoUrl = 'https://packages.aliyun.com/maven/repository/xxxxxx-release-xxxxxxx/'
-            def snapshotsRepoUrl = 'https://packages.aliyun.com/maven/repository/xxxxx-snapshot-xxxxxx/'
-            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            name = "aliyunPrivateNexus"
+            url = version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.url : repos.aliyunMavenRelease.url
             credentials {
-                username 'name'
-                password 'passwd'
+                username version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.username : repos.aliyunMavenRelease.username
+                password version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.password : repos.aliyunMavenRelease.password
             }
         }
     }
