@@ -14,22 +14,18 @@ def repos = [
 		        url: "https://maven.aliyun.com/repository/public"
 		],
 		aliyunMavenRelease: [
-		        url: "https://packages.aliyun.com/maven/repository/2292782-release-Hhylnv/",
-				username: "634e4f8c5da2592283036a0a",
-				password: "zC[Ny2)]TRBb"
+		        url: "https://packages.aliyun.com/maven/repository/xxxx-release-xxxx/",
+				username: "xxxx",
+				password: "xxxx"
 		],
 		aliyunMavenSnapshot: [
-				url: "https://packages.aliyun.com/maven/repository/2292782-snapshot-raaRk8/",
-				username: "634e4f8c5da2592283036a0a",
-				password: "zC[Ny2)]TRBb"
+				url: "https://packages.aliyun.com/maven/repository/xxxx-snapshot-xxxx/",
+				username: "xxxx",
+				password: "xxxx"
 		]
 ]
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
+def lombok = "org.projectlombok:lombok"
 
 jar {
 	archiveFileName = "app.jar"
@@ -56,10 +52,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-	implementation 'log4j:log4j:1.2.17'
-	compileOnly 'org.projectlombok:lombok'
+
+	compileOnly lombok
+	annotationProcessor lombok
+	testCompileOnly lombok
+	testAnnotationProcessor lombok
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
