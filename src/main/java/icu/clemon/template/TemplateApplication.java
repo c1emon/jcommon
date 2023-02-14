@@ -1,4 +1,4 @@
-package cn.com.fxelec.template;
+package icu.clemon.template;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

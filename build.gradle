@@ -1,13 +1,29 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.5'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
 	id 'maven-publish'
 }
 
-group = 'cn.com.fxelec'
+group = 'icu.clemon'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
+
+def repos = [
+		aliyunMavenPublic: [
+		        url: "https://maven.aliyun.com/repository/public"
+		],
+		aliyunMavenRelease: [
+		        url: "https://packages.aliyun.com/maven/repository/2292782-release-Hhylnv/",
+				username: "634e4f8c5da2592283036a0a",
+				password: "zC[Ny2)]TRBb"
+		],
+		aliyunMavenSnapshot: [
+				url: "https://packages.aliyun.com/maven/repository/2292782-snapshot-raaRk8/",
+				username: "634e4f8c5da2592283036a0a",
+				password: "zC[Ny2)]TRBb"
+		]
+]
 
 configurations {
 	compileOnly {
@@ -23,21 +39,14 @@ repositories {
 	mavenLocal()
 	mavenCentral()
 	maven {
-		url 'https://maven.aliyun.com/repository/public'
+		url repos.aliyunMavenPublic.url
 	}
 	maven {
+		url repos.aliyunMavenRelease.url
 		credentials {
-			username '634e4f8c5da2592283036a0a'
-			password 'zC[Ny2)]TRBb'
+			username repos.aliyunMavenRelease.username
+			password repos.aliyunMavenRelease.password
 		}
-		url 'https://packages.aliyun.com/maven/repository/2292782-release-Hhylnv/'
-	}
-	maven {
-		credentials {
-			username '634e4f8c5da2592283036a0a'
-			password 'zC[Ny2)]TRBb'
-		}
-		url 'https://packages.aliyun.com/maven/repository/2292782-snapshot-raaRk8/'
 	}
 }
 
@@ -72,13 +81,11 @@ publishing {
 	}
 	repositories {
 		maven {
-			name = "AliNexus"
-			def releasesRepoUrl = 'https://packages.aliyun.com/maven/repository/2292782-release-Hhylnv/'
-			def snapshotsRepoUrl = 'https://packages.aliyun.com/maven/repository/2292782-snapshot-raaRk8/'
-			url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+			name = "aliyunPrivateNexus"
+			url = version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.url : repos.aliyunMavenRelease.url
 			credentials {
-				username '634e4f8c5da2592283036a0a'
-				password 'zC[Ny2)]TRBb'
+				username version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.username : repos.aliyunMavenRelease.username
+				password version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.password : repos.aliyunMavenRelease.password
 			}
 		}
 	}
