@@ -1,7 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-icu.clemon.common.http.CommonErrorController,\
-icu.clemon.common.http.GlobalResponseHandler,\
-icu.clemon.common.http.CommonWebMvcConfigurer,\
-icu.clemon.common.json.CommonJackson2ObjectMapperBuilderCustomizer,\
-icu.clemon.common.exception.GlobalExceptionHandler,\
-icu.clemon.common.utils.BeanUtils
