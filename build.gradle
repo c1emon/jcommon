@@ -33,7 +33,6 @@ jar {
 
 repositories {
 	mavenLocal()
-	mavenCentral()
 	maven {
 		url repos.aliyunMavenPublic.url
 	}
@@ -44,6 +43,7 @@ repositories {
 			password repos.aliyunMavenRelease.password
 		}
 	}
+	mavenCentral()
 }
 
 dependencies {
