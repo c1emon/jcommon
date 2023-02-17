@@ -1,6 +1,5 @@
-icu.clemon.common.http.CommonErrorController
-icu.clemon.common.http.GlobalResponseHandler
-icu.clemon.common.http.CommonWebMvcConfigurer
-icu.clemon.common.json.CommonJackson2ObjectMapperBuilderCustomizer
-icu.clemon.common.exception.GlobalExceptionHandler
-icu.clemon.common.utils.BeanUtils
+icu.clemon.common.exception.ExceptionHandlerAutoConfiguration
+icu.clemon.common.json.JacksonAutoConfiguration
+icu.clemon.common.mongodb.MongoAutoConfiguration
+icu.clemon.common.http.WebAutoConfiguration
+icu.clemon.common.utils.UtilsAutoConfiguration
