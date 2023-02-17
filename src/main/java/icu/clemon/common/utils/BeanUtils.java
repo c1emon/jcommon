@@ -1,6 +1,5 @@
 package icu.clemon.common.utils;
 
-import icu.clemon.common.mongodb.MongoUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

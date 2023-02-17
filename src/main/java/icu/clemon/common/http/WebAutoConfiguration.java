@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @RequiredArgsConstructor
 @AutoConfiguration
