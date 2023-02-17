@@ -9,29 +9,10 @@ plugins {
 group = 'icu.clemon'
 version = gitVersion()
 
-def repos = [
-        aliyunMavenPublic: [
-                url: "https://maven.aliyun.com/repository/public"
-        ],
-        aliyunMavenRelease: [
-                url: "https://packages.aliyun.com/maven/repository/xxxx-release-xxxx/",
-                username: "xxxxxx",
-                password: "xxxxxx"
-        ],
-        aliyunMavenSnapshot: [
-                url: "https://packages.aliyun.com/maven/repository/xxxx-snapshot-xxxx/",
-                username: "xxxxxxxx",
-                password: "xxxxxxxx"
-        ]
-]
-
 def lombok = "org.projectlombok:lombok"
 
 repositories {
     mavenLocal()
-    maven {
-        url repos.aliyunMavenPublic.url
-    }
     mavenCentral()
 }
 
@@ -72,11 +53,11 @@ publishing {
     }
     repositories {
         maven {
-            name = "aliyunPrivateNexus"
-            url = version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.url : repos.aliyunMavenRelease.url
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/c1emon/maven"
             credentials {
-                username version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.username : repos.aliyunMavenRelease.username
-                password version.endsWith('SNAPSHOT') ? repos.aliyunMavenSnapshot.password : repos.aliyunMavenRelease.password
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
             }
         }
     }
