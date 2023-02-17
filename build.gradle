@@ -35,6 +35,14 @@ java {
     withSourcesJar()
 }
 
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
 publishing {
     publications {
         Production(MavenPublication) {
