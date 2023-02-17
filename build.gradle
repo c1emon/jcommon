@@ -25,9 +25,6 @@ dependencies {
     annotationProcessor lombok
     testCompileOnly lombok
     testAnnotationProcessor lombok
-
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 java {
