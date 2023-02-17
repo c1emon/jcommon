@@ -18,7 +18,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
         var f1 = clz.isAssignableFrom(Result.class);
         var f2 = clz.isAssignableFrom(PageResult.class);
-        var f3 = true;
+        var f3 = false;
         if (responseWrapperAnno != null ) {
             f3 = !responseWrapperAnno.enabled();
         }
