@@ -10,6 +10,9 @@ import java.io.IOException;
 public class EnumeratorSerializer extends JsonSerializer<Enumerator> {
     @Override
     public void serialize(Enumerator value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-
+        gen.writeStartObject();
+        gen.writeNumberField("id", value.getId());
+        gen.writeStringField("description", value.getDescription());
+        gen.writeEndObject();
     }
 }

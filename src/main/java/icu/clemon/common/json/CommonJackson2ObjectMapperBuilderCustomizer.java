@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import icu.clemon.common.types.Enumerator;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.core.Ordered;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -34,10 +32,7 @@ public class CommonJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateFormat)));
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(dateFormat)));
 
-        SimpleModule enumeratorModule = new SimpleModule();
-        enumeratorModule.addSerializer(Enumerator.class, new EnumeratorSerializer());
-        enumeratorModule.addDeserializer(Enumerator.class, new EnumeratorDeserializer());
-        builder.modulesToInstall(javaTimeModule, enumeratorModule);
+        builder.modulesToInstall(javaTimeModule);
 
         // 默认禁用，禁用情况下，需考虑WRITE_ENUMS_USING_TO_STRING配置。启用后，ENUM序列化为数字
         builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
