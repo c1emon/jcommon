@@ -63,7 +63,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> error(APIException e) {
-        return error(e.getCode(), e.getMsg());
+        return error(e.getCode(), e.getMessage());
     }
 
     public static <T> Result<T> error(int code, String msg) {

@@ -4,6 +4,7 @@ import icu.clemon.common.http.Result;
 import icu.clemon.common.http.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,6 +38,21 @@ public class GlobalExceptionHandler {
         log.error("Unknown error:\n");
         e.printStackTrace();
         return Result.error(ResultCode.CODE500.getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public Result<Object> HttpMessageNotReadableExceptionHandler(Exception e) {
+        if (e instanceof HttpMessageNotReadableException ex) {
+            if (ex.getRootCause() instanceof APIException exx) {
+                log.error("API error:\n");
+                e.printStackTrace();
+                return Result.error(exx);
+            }
+
+        }
+        log.error("Http message NotReadable error:\n");
+        e.printStackTrace();
+        return Result.error(ResultCode.CODE400.getCode(), e.getMessage());
     }
 
 }

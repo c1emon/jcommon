@@ -8,19 +8,31 @@ import lombok.Getter;
 @AllArgsConstructor
 public class APIException extends RuntimeException {
     private int code;
-    private String msg;
+    private String Message;
 
     private Object data;
 
+    public APIException(ResultCode rc, String message, Object data) {
+        this.code = rc.getCode();
+        this.Message = message;
+        this.data = data;
+    }
+
+    public APIException(ResultCode rc, String message) {
+        this.code = rc.getCode();
+        this.Message = message;
+        this.data = null;
+    }
+
     public APIException(ResultCode rc, Object data) {
         this.code = rc.getCode();
-        this.msg = rc.getMsg();
+        this.Message = rc.getMsg();
         this.data = data;
     }
 
     public APIException(ResultCode rc) {
         this.code = rc.getCode();
-        this.msg = rc.getMsg();
+        this.Message = rc.getMsg();
         this.data = null;
     }
 

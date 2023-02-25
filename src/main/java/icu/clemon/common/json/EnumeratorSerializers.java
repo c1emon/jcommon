@@ -8,12 +8,15 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import icu.clemon.common.exception.APIException;
 import icu.clemon.common.types.Enumerator;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static icu.clemon.common.http.ResultCode.CodeIllegalArgument;
 
 public class EnumeratorSerializers {
 
@@ -39,11 +42,11 @@ public class EnumeratorSerializers {
             this.propertyClass = propertyClass;
         }
 
-        public Enumerator Gen(int id) {
+        public Enumerator getTargetEnumerator(int id) {
             return Arrays.stream(propertyClass.getEnumConstants()) // 调用Class的这个方法，获取枚举类的所有枚举值
                     .filter(e -> e.getId() == id)
                     .findAny()
-                    .orElseThrow(() -> new IllegalArgumentException("No such id of " + propertyClass.getSimpleName()));
+                    .orElseThrow(() -> new APIException(CodeIllegalArgument, "bad id for " + propertyClass.getSimpleName()));
         }
 
         @Override
@@ -67,7 +70,7 @@ public class EnumeratorSerializers {
                                     try {
                                         id.set(Integer.parseInt(((TextNode) treeNode.get("id")).asText()));
                                     } catch (Exception ex) {
-                                        throw new IllegalArgumentException("No such id of " + propertyClass.getSimpleName());
+                                        throw new APIException(CodeIllegalArgument, "bad id for " + propertyClass.getSimpleName());
                                     }
                                 }
                             }
@@ -80,7 +83,7 @@ public class EnumeratorSerializers {
             }
 
 
-            return Gen(id.get());
+            return getTargetEnumerator(id.get());
         }
 
         @Override
