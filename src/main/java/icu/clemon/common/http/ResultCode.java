@@ -4,7 +4,9 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 public enum ResultCode {
-    CodeIllegalArgument(1004, "IllegalArgumentException"),
+    CODEIllegalArgument(1004, "IllegalArgumentException"),
+    CODENotFound(1005, "not found"),
+    CODEAlreadyExist(1006, "already exists"),
     CODE200(HttpStatus.OK.value(), HttpStatus.OK.name()),
     CODE400(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name()),
     CODE401(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.name()),

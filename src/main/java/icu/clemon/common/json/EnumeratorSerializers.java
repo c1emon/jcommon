@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static icu.clemon.common.http.ResultCode.CodeIllegalArgument;
+import static icu.clemon.common.http.ResultCode.CODEIllegalArgument;
 
 public class EnumeratorSerializers {
 
@@ -46,7 +46,7 @@ public class EnumeratorSerializers {
             return Arrays.stream(propertyClass.getEnumConstants()) // 调用Class的这个方法，获取枚举类的所有枚举值
                     .filter(e -> e.getId() == id)
                     .findAny()
-                    .orElseThrow(() -> new APIException(CodeIllegalArgument, "bad id for " + propertyClass.getSimpleName()));
+                    .orElseThrow(() -> new APIException(CODEIllegalArgument, "bad id for " + propertyClass.getSimpleName()));
         }
 
         @Override
@@ -70,7 +70,7 @@ public class EnumeratorSerializers {
                                     try {
                                         id.set(Integer.parseInt(((TextNode) treeNode.get("id")).asText()));
                                     } catch (Exception ex) {
-                                        throw new APIException(CodeIllegalArgument, "bad id for " + propertyClass.getSimpleName());
+                                        throw new APIException(CODEIllegalArgument, "bad id for " + propertyClass.getSimpleName());
                                     }
                                 }
                             }

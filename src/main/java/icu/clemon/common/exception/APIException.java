@@ -1,16 +1,15 @@
 package icu.clemon.common.exception;
 
 import icu.clemon.common.http.ResultCode;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 
 @Getter
-@AllArgsConstructor
 public class APIException extends RuntimeException {
-    private int code;
-    private String Message;
-
-    private Object data;
+    private final int code;
+    private final String Message;
+    @Nullable
+    private final Object data;
 
     public APIException(ResultCode rc, String message, Object data) {
         this.code = rc.getCode();
@@ -33,6 +32,18 @@ public class APIException extends RuntimeException {
     public APIException(ResultCode rc) {
         this.code = rc.getCode();
         this.Message = rc.getMsg();
+        this.data = null;
+    }
+
+    public APIException(int code, String Message, Object data) {
+        this.code = code;
+        this.Message = Message;
+        this.data = data;
+    }
+
+    public APIException(int code,String Message) {
+        this.code = code;
+        this.Message = Message;
         this.data = null;
     }
 
