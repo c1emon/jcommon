@@ -1,4 +1,4 @@
-package icu.clemon.common.json;
+package icu.clemon.jcommon.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;

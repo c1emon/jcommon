@@ -1,7 +1,7 @@
-package icu.clemon.common.http;
+package icu.clemon.jcommon.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import icu.clemon.common.exception.APIException;
+import icu.clemon.jcommon.exception.APIException;
 import lombok.Data;
 import lombok.SneakyThrows;
 

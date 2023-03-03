@@ -1,4 +1,4 @@
-package icu.clemon.common.utils;
+package icu.clemon.jcommon.utils;
 
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;

@@ -63,7 +63,6 @@ publishing {
 
             pom {
                 name = project.name
-                packaging = 'jar'
                 description = 'Common lib of Spring Web App'
                 url = 'https://github.com/c1emon/jcommon'
 

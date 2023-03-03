@@ -1,7 +1,7 @@
-package icu.clemon.common.exception;
+package icu.clemon.jcommon.exception;
 
-import icu.clemon.common.http.Result;
-import icu.clemon.common.http.ResultCode;
+import icu.clemon.jcommon.http.Result;
+import icu.clemon.jcommon.http.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;

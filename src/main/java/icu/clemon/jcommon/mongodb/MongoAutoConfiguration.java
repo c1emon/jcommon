@@ -1,4 +1,4 @@
-package icu.clemon.common.mongodb;
+package icu.clemon.jcommon.mongodb;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
