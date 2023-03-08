@@ -1,4 +1,4 @@
-package icu.clemon.common.http;
+package icu.clemon.jcommon.http;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

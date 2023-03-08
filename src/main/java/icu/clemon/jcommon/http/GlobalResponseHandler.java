@@ -1,4 +1,4 @@
-package icu.clemon.common.http;
+package icu.clemon.jcommon.http;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

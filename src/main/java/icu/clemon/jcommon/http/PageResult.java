@@ -1,4 +1,4 @@
-package icu.clemon.common.http;
+package icu.clemon.jcommon.http;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

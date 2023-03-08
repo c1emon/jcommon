@@ -1,6 +1,6 @@
-package icu.clemon.common.exception;
+package icu.clemon.jcommon.exception;
 
-import icu.clemon.common.http.ResultCode;
+import icu.clemon.jcommon.http.ResultCode;
 import lombok.Getter;
 import org.springframework.lang.Nullable;
 

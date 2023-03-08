@@ -1,4 +1,4 @@
-package icu.clemon.common.http;
+package icu.clemon.jcommon.http;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package icu.clemon.common.json;
+package icu.clemon.jcommon.json;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;

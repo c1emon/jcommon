@@ -1,5 +1,6 @@
-package icu.clemon.common.http;
+package icu.clemon.jcommon.http;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
@@ -17,8 +18,8 @@ public class WebAutoConfiguration {
     }
 
     @Bean
-    public CommonWebMvcConfigurer commonWebMvcConfigurer() {
-        return new CommonWebMvcConfigurer();
+    public CommonWebMvcConfigurer commonWebMvcConfigurer(ObjectMapper mapper) {
+        return new CommonWebMvcConfigurer(mapper);
     }
 
     @Bean

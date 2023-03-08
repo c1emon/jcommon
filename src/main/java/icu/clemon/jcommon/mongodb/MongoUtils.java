@@ -1,6 +1,6 @@
-package icu.clemon.common.mongodb;
+package icu.clemon.jcommon.mongodb;
 
-import icu.clemon.common.utils.BeanUtils;
+import icu.clemon.jcommon.utils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 import org.springframework.data.mongodb.core.MongoTemplate;
