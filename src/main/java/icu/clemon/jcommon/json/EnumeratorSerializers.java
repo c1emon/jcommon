@@ -1,12 +1,13 @@
 package icu.clemon.jcommon.json;
 
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
+import icu.clemon.jcommon.config.JcommonConfig;
 import icu.clemon.jcommon.exception.APIException;
 import icu.clemon.jcommon.types.Enumerator;
+import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -16,14 +17,19 @@ import static icu.clemon.jcommon.http.ResultCode.CODEIllegalArgument;
 
 public class EnumeratorSerializers {
 
+    @RequiredArgsConstructor
     public static class Serializer extends JsonSerializer<Enumerator> {
+        private final JcommonConfig config;
         @Override
         public void serialize(Enumerator value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-//            gen.writeStartObject();
-//            gen.writeNumberField("id", value.getId());
-//            gen.writeStringField("description", value.getDescription());
-//            gen.writeEndObject();
-            gen.writeNumber(value.getId());
+            if (config.isWithDesc()) {
+                gen.writeStartObject();
+                gen.writeNumberField("id", value.getId());
+                gen.writeStringField("desc", value.getDescription());
+                gen.writeEndObject();
+            } else {
+                gen.writeNumber(value.getId());
+            }
         }
     }
 
@@ -32,10 +38,12 @@ public class EnumeratorSerializers {
         private final Class<? extends Enumerator> propertyClass;
 
         public Deserializer() {
+            super();
             this.propertyClass = null;
         }
 
-        public Deserializer(Class<? extends Enumerator> propertyClass) {
+        public Deserializer(final Class<? extends Enumerator> propertyClass) {
+            super();
             this.propertyClass = propertyClass;
         }
 
@@ -48,7 +56,7 @@ public class EnumeratorSerializers {
         }
 
         @Override
-        public Enumerator deserialize(JsonParser p, DeserializationContext ctx) throws IOException, JacksonException {
+        public Enumerator deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
             assert propertyClass != null;
             AtomicInteger id = new AtomicInteger();
 
@@ -58,7 +66,8 @@ public class EnumeratorSerializers {
                 try {
                     id.set(Integer.parseInt(p.getText()));
                 } catch (IOException | NumberFormatException exx) {
-                    throw new APIException(CODEIllegalArgument, "bad id for " + propertyClass.getSimpleName());
+                    throw new APIException(CODEIllegalArgument,
+                            String.format("failed convert value %s to type %s", p.getText(), propertyClass.getName()));
                 }
             }
 
@@ -66,7 +75,7 @@ public class EnumeratorSerializers {
         }
 
         @Override
-        public JsonDeserializer<Enumerator> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
+        public JsonDeserializer<Enumerator> createContextual(final DeserializationContext ctx, final BeanProperty property) {
             var rawClass = property.getType().getRawClass();
             if (Enumerator.class.isAssignableFrom(rawClass) && Enum.class.isAssignableFrom(rawClass)) {
                 return new EnumeratorSerializers.Deserializer(rawClass.asSubclass(Enumerator.class));

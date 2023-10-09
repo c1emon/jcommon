@@ -2,4 +2,5 @@ icu.clemon.jcommon.exception.ExceptionHandlerAutoConfiguration
 icu.clemon.jcommon.json.JacksonAutoConfiguration
 icu.clemon.jcommon.mongodb.MongoAutoConfiguration
 icu.clemon.jcommon.http.WebAutoConfiguration
+icu.clemon.jcommon.config.JcommonAutoConfiguration
 icu.clemon.jcommon.utils.UtilsAutoConfiguration

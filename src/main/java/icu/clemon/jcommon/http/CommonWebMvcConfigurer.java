@@ -1,6 +1,5 @@
 package icu.clemon.jcommon.http;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -14,8 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CommonWebMvcConfigurer implements WebMvcConfigurer {
 
-    private final ObjectMapper mapper;
-
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         WebMvcConfigurer.super.configureMessageConverters(converters);
@@ -26,6 +23,6 @@ public class CommonWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         WebMvcConfigurer.super.addFormatters(registry);
-//        registry.addConverter(new EnumeratorConditionalGenericConverter(mapper));
+        registry.addConverter(new EnumeratorConverter());
     }
 }
