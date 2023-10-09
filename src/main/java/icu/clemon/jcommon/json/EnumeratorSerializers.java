@@ -47,12 +47,12 @@ public class EnumeratorSerializers {
             this.propertyClass = propertyClass;
         }
 
-        public Enumerator getTargetEnumerator(int id) {
-            assert propertyClass != null;
-            return Arrays.stream(propertyClass.getEnumConstants()) // 调用Class的这个方法，获取枚举类的所有枚举值
+        public static Enumerator getActualEnumerator(Class<? extends Enumerator> clz, int id) {
+            return Arrays.stream(clz.getEnumConstants()) // 调用Class的这个方法，获取枚举类的所有枚举值
                     .filter(e -> e.getId() == id)
                     .findAny()
-                    .orElseThrow(() -> new APIException(CODEIllegalArgument, "bad id for " + propertyClass.getSimpleName()));
+                    .orElseThrow(() -> new APIException(CODEIllegalArgument,
+                            String.format("failed convert value %s to type %s", id, clz.getName())));
         }
 
         @Override
@@ -71,11 +71,12 @@ public class EnumeratorSerializers {
                 }
             }
 
-            return getTargetEnumerator(id.get());
+            return getActualEnumerator(propertyClass, id.get());
         }
 
         @Override
         public JsonDeserializer<Enumerator> createContextual(final DeserializationContext ctx, final BeanProperty property) {
+            assert property != null;
             var rawClass = property.getType().getRawClass();
             if (Enumerator.class.isAssignableFrom(rawClass) && Enum.class.isAssignableFrom(rawClass)) {
                 return new EnumeratorSerializers.Deserializer(rawClass.asSubclass(Enumerator.class));

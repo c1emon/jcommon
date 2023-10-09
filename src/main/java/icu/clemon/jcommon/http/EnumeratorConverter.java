@@ -1,11 +1,11 @@
 package icu.clemon.jcommon.http;
 
 import icu.clemon.jcommon.exception.APIException;
+import icu.clemon.jcommon.json.EnumeratorSerializers;
 import icu.clemon.jcommon.types.Enumerator;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.ConditionalGenericConverter;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,11 +40,8 @@ public class EnumeratorConverter implements ConditionalGenericConverter {
                     String.format("failed convert value %s to type %s", source, targetType.getName()));
         }
 
-        return Arrays.stream(targetType.getType().asSubclass(Enumerator.class).getEnumConstants()) // 调用Class的这个方法，获取枚举类的所有枚举值
-                .filter(e -> e.getId() == id.get())
-                .findAny()
-                .orElseThrow(() -> new APIException(CODEIllegalArgument,
-                        String.format("failed convert value %s to type %s", source, targetType.getName())));
-
+        return EnumeratorSerializers.Deserializer.
+                getActualEnumerator(targetType.getType().asSubclass(Enumerator.class),
+                                    id.get());
     }
 }
