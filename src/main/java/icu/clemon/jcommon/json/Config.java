@@ -6,7 +6,7 @@ import lombok.Data;
 public class Config {
 
     /**
-     * should deserialize with desc
+     * should serialize Enumerator with desc
      */
-    private boolean deserializeWithDesc = false;
+    private boolean serializeWithDesc = false;
 }
