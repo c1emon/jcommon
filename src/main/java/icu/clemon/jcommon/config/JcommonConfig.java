@@ -15,5 +15,5 @@ public class JcommonConfig {
      * Enumerator config
      */
     @NestedConfigurationProperty
-    private Config enumerator;
+    private Config enumerator = new Config();
 }
