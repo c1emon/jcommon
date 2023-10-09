@@ -92,7 +92,8 @@ publishing {
     }
     repositories {
         maven {
-            url = project.version.endsWith("SNAPSHOT") ? "https://s01.oss.sonatype.org/content/repositories/snapshots" : "https://s01.oss.sonatype.org/content/repositories/releases"
+            // https://central.sonatype.org/publish/publish-guide/#releasing-to-central
+            url = project.version.endsWith("SNAPSHOT") ? "https://s01.oss.sonatype.org/content/repositories/snapshots/" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             credentials {
                 username = ossrhUsername
                 password = ossrhPassword
