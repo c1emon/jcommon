@@ -22,7 +22,7 @@ public class EnumeratorSerializers {
         private final JcommonConfig config;
         @Override
         public void serialize(Enumerator value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-            if (config.isWithDesc()) {
+            if (config.getEnumerator().isDeserializeWithDesc()) {
                 gen.writeStartObject();
                 gen.writeNumberField("id", value.getId());
                 gen.writeStringField("desc", value.getDescription());
