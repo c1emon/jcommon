@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static icu.clemon.jcommon.http.ResultCode.CODEIllegalArgument;
+import static icu.clemon.jcommon.http.ResultCode.IllegalArgument;
 
 // for mvc param convert
 public class EnumeratorConverter implements ConditionalGenericConverter {
@@ -36,7 +36,7 @@ public class EnumeratorConverter implements ConditionalGenericConverter {
         try {
             id.set(Integer.parseInt(source.toString()));
         } catch (NumberFormatException e) {
-            throw new APIException(CODEIllegalArgument,
+            throw new APIException(IllegalArgument,
                     String.format("failed convert value %s to type %s", source, targetType.getName()));
         }
 

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static icu.clemon.jcommon.http.ResultCode.CODEIllegalArgument;
+import static icu.clemon.jcommon.http.ResultCode.IllegalArgument;
 
 public class EnumeratorSerializers {
 
@@ -51,7 +51,7 @@ public class EnumeratorSerializers {
             return Arrays.stream(clz.getEnumConstants()) // 调用Class的这个方法，获取枚举类的所有枚举值
                     .filter(e -> e.getId() == id)
                     .findAny()
-                    .orElseThrow(() -> new APIException(CODEIllegalArgument,
+                    .orElseThrow(() -> new APIException(IllegalArgument,
                             String.format("failed convert value %s to type %s", id, clz.getName())));
         }
 
@@ -66,7 +66,7 @@ public class EnumeratorSerializers {
                 try {
                     id.set(Integer.parseInt(p.getText()));
                 } catch (IOException | NumberFormatException exx) {
-                    throw new APIException(CODEIllegalArgument,
+                    throw new APIException(IllegalArgument,
                             String.format("failed convert value %s to type %s", p.getText(), propertyClass.getName()));
                 }
             }

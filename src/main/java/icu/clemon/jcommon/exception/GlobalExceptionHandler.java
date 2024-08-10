@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
         }
         log.error("Uncached API error:\n");
         e.printStackTrace();
-        return Result.error(ResultCode.CODE500.getCode(), e.getMessage());
+        return Result.error(ResultCode.HTTP500.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
         var error = String.format("%s should be of type %s",
                                             ex.getName(), ex.getRequiredType().getName());
         ex.printStackTrace();
-        return Result.error(ResultCode.CODE500.getCode(), error);
+        return Result.error(ResultCode.HTTP500.getCode(), error);
     }
 
     @ExceptionHandler(BindException.class)
@@ -49,21 +49,21 @@ public class GlobalExceptionHandler {
 //        var clz = ex.getBindingResult().getTarget().getClass();
         log.error("Binding exception:\n");
         ex.printStackTrace();
-        return Result.error(ResultCode.CODE500.getCode(), error);
+        return Result.error(ResultCode.HTTP500.getCode(), error);
     }
 
     @ExceptionHandler(NullPointerException.class)
     public Result<String> nullPointerExceptionHandler(NullPointerException e) {
         log.error("NullPointer error:");
         e.printStackTrace();
-        return Result.error(ResultCode.CODE500.getCode(), e.getMessage());
+        return Result.error(ResultCode.HTTP500.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public Result<String> UnknownHandler(Exception e) {
         log.error("Unknown error:\n");
         e.printStackTrace();
-        return Result.error(ResultCode.CODE500.getCode(), e.getMessage());
+        return Result.error(ResultCode.HTTP500.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
         }
         log.error("Http message NotReadable error:\n");
         e.printStackTrace();
-        return Result.error(ResultCode.CODE400.getCode(), e.getMessage());
+        return Result.error(ResultCode.HTTP400.getCode(), e.getMessage());
     }
 
 }

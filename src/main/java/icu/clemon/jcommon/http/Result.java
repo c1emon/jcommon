@@ -10,7 +10,6 @@ import java.io.Serializable;
 @Data
 public class Result<T> implements Serializable {
 
-    private boolean success;
     private String msg;
     private int code;
     private long ts;
@@ -23,18 +22,17 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> success(int code, String msg, T data) {
         Result<T> r = new Result<>();
         r.setCode(code);
-        r.setSuccess(true);
         r.setMsg(msg);
         r.setData(data);
         return r;
     }
 
     public static <T> Result<T> success() {
-        return success(ResultCode.CODE200.getCode(), null, null);
+        return success(ResultCode.HTTP200.getCode(), null, null);
     }
 
     public static <T> Result<T> success(T data) {
-        return success(ResultCode.CODE200.getCode(), ResultCode.CODE200.getMsg(), data);
+        return success(ResultCode.OK.getCode(), null, data);
     }
 
     public static <T> Result<T> success(int code) {
@@ -48,14 +46,13 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> error(int code, String msg, T data) {
         Result<T> r = new Result<>();
         r.setCode(code);
-        r.setSuccess(false);
         r.setMsg(msg);
         r.setData(data);
         return r;
     }
 
     public static <T> Result<T> error() {
-        return error(ResultCode.CODE400.getCode(), null, null);
+        return error(ResultCode.HTTP400.getCode(), null, null);
     }
 
     public static <T> Result<T> error(int code) {
