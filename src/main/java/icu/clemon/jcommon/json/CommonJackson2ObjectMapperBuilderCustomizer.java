@@ -2,7 +2,7 @@ package icu.clemon.jcommon.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -24,7 +24,7 @@ public class CommonJackson2ObjectMapperBuilderCustomizer implements Jackson2Obje
         builder.serializationInclusion(JsonInclude.Include.NON_NULL);
         builder.serializationInclusion(JsonInclude.Include.NON_EMPTY);
         builder.failOnUnknownProperties(false);
-        builder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        builder.propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         builder.simpleDateFormat(dateFormat);
 
         // 针对于JDK新时间类。序列化时带有T的问题，自定义格式化字符串

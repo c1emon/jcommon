@@ -39,7 +39,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-consul-discovery'
 
-    api 'org.apache.commons:commons-lang3:3.13.0'
+    api 'org.apache.commons:commons-lang3:3.16.0'
+    api 'com.google.guava:guava:33.3.0-jre'
+
 
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 

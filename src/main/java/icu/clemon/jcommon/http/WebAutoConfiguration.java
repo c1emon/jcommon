@@ -1,5 +1,6 @@
 package icu.clemon.jcommon.http;
 
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
@@ -24,6 +25,11 @@ public class WebAutoConfiguration {
     @Bean
     public CommonErrorController commonErrorController() {
         return new CommonErrorController(basicErrorController);
+    }
+
+    @Bean
+    public Filter httpGetSnakeCaseConverter() {
+        return new HttpGetSnakeCaseConverter();
     }
 
 }
