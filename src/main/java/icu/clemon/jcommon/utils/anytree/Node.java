@@ -10,14 +10,14 @@ import java.util.List;
 @NoArgsConstructor
 public class Node<T> {
 
-    private T data;
+  private T data;
 
-    private List<Node<T>> children;
+  private List<Node<T>> children;
 
-    public void addChild(Node<T> child) {
-        if (children == null) {
-            children = new ArrayList<>();
-        }
-        children.add(child);
+  public void addChild(Node<T> child) {
+    if (children == null) {
+      children = new ArrayList<>();
     }
+    children.add(child);
+  }
 }

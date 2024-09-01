@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class JcommonAppTest {
 
-    @Test
-    void Test() {
-        log.info("hello test");
-    }
+  @Test
+  void Test() {
+    log.info("hello test");
+  }
 }

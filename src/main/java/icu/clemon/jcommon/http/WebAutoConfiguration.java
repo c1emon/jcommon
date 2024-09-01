@@ -10,26 +10,25 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 public class WebAutoConfiguration {
 
-    private final BasicErrorController basicErrorController;
+  private final BasicErrorController basicErrorController;
 
-    @Bean
-    public GlobalResponseHandler globalResponseHandler() {
-        return new GlobalResponseHandler();
-    }
+  @Bean
+  public GlobalResponseHandler globalResponseHandler() {
+    return new GlobalResponseHandler();
+  }
 
-    @Bean
-    public CommonWebMvcConfigurer commonWebMvcConfigurer() {
-        return new CommonWebMvcConfigurer();
-    }
+  @Bean
+  public CommonWebMvcConfigurer commonWebMvcConfigurer() {
+    return new CommonWebMvcConfigurer();
+  }
 
-    @Bean
-    public CommonErrorController commonErrorController() {
-        return new CommonErrorController(basicErrorController);
-    }
+  @Bean
+  public CommonErrorController commonErrorController() {
+    return new CommonErrorController(basicErrorController);
+  }
 
-    @Bean
-    public Filter httpGetSnakeCaseConverter() {
-        return new HttpGetSnakeCaseConverter();
-    }
-
+  @Bean
+  public Filter httpGetSnakeCaseConverter() {
+    return new HttpGetSnakeCaseConverter();
+  }
 }

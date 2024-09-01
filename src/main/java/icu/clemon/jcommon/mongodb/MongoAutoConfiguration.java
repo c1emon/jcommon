@@ -13,14 +13,13 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 @Configuration
 public class MongoAutoConfiguration {
 
-    @Bean
-    public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context, ObjectMapper mapper) {
-        DbRefResolver resolver = new DefaultDbRefResolver(factory);
-        MappingMongoConverter converter = new MappingMongoConverter(resolver, context);
-        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+  @Bean
+  public MappingMongoConverter mappingMongoConverter(
+      MongoDatabaseFactory factory, MongoMappingContext context, ObjectMapper mapper) {
+    DbRefResolver resolver = new DefaultDbRefResolver(factory);
+    MappingMongoConverter converter = new MappingMongoConverter(resolver, context);
+    converter.setTypeMapper(new DefaultMongoTypeMapper(null));
 
-        return converter;
-    }
-
-
+    return converter;
+  }
 }

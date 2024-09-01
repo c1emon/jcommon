@@ -10,8 +10,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ResponseWrapper {
-    @AliasFor("value")
-    boolean enabled() default true;
-    @AliasFor("enabled")
-    boolean value() default true;
+  @AliasFor("value")
+  boolean enabled() default true;
+
+  @AliasFor("enabled")
+  boolean value() default true;
 }

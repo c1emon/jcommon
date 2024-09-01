@@ -1,6 +1,5 @@
 package icu.clemon.jcommon.consul;
 
-
 import com.ecwid.consul.v1.ConsulClient;
 import icu.clemon.jcommon.route.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +22,16 @@ import org.springframework.context.annotation.Primary;
 @AutoConfigureBefore(ServiceRegistryAutoConfiguration.class)
 public class ConsulAutoConfiguration {
 
-    @Bean
-    @Primary
-    public ConsulServiceRegistry commonConsulServiceRegistry(ConsulClient consulClient,
-                                                             ConsulDiscoveryProperties properties,
-                                                             @Autowired(required = false) TtlScheduler ttlScheduler,
-                                                             HeartbeatProperties heartbeatProperties,
-                                                             @Value("${spring.application.name}") String appName,
-                                                             RouteService routeService) {
-        return new ServiceRegistry(consulClient, properties, ttlScheduler, heartbeatProperties, appName, routeService);
-    }
-
-
+  @Bean
+  @Primary
+  public ConsulServiceRegistry commonConsulServiceRegistry(
+      ConsulClient consulClient,
+      ConsulDiscoveryProperties properties,
+      @Autowired(required = false) TtlScheduler ttlScheduler,
+      HeartbeatProperties heartbeatProperties,
+      @Value("${spring.application.name}") String appName,
+      RouteService routeService) {
+    return new ServiceRegistry(
+        consulClient, properties, ttlScheduler, heartbeatProperties, appName, routeService);
+  }
 }

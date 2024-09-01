@@ -9,20 +9,19 @@ import org.springframework.data.mongodb.core.query.Update;
 
 public class MongoUtils {
 
-    public static Criteria criteriaFuzzy(String field, String p) {
-        assert field != null;
-        return Criteria.where(field).regex(String.format("^.*%s.*$", StringUtils.isNotBlank(p)?p:".*"));
-    }
+  public static Criteria criteriaFuzzy(String field, String p) {
+    assert field != null;
+    return Criteria.where(field)
+        .regex(String.format("^.*%s.*$", StringUtils.isNotBlank(p) ? p : ".*"));
+  }
 
-    public static Update updateFrom(Object o) {
-        MongoTemplate template = (MongoTemplate) BeanUtils.getBean("mongoTemplate");
+  public static Update updateFrom(Object o) {
+    MongoTemplate template = (MongoTemplate) BeanUtils.getBean("mongoTemplate");
 
-        var doc = new Document();
-        var update = new Update();
-        template.getConverter().write(o, doc);
-        doc.forEach(update::set);
-        return update;
-    }
-
-
+    var doc = new Document();
+    var update = new Update();
+    template.getConverter().write(o, doc);
+    doc.forEach(update::set);
+    return update;
+  }
 }

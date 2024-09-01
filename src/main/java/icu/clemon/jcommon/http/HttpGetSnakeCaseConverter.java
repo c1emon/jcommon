@@ -22,41 +22,44 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class HttpGetSnakeCaseConverter extends OncePerRequestFilter {
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !request.getMethod().equalsIgnoreCase(RequestMethod.GET.name());
+  @Override
+  protected boolean shouldNotFilter(HttpServletRequest request) {
+    return !request.getMethod().equalsIgnoreCase(RequestMethod.GET.name());
+  }
+
+  @Override
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
+    final Map<String, String[]> formattedParams = new ConcurrentHashMap<>();
+
+    for (String param : request.getParameterMap().keySet()) {
+      String formattedParam = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, param);
+      formattedParams.put(formattedParam, request.getParameterValues(param));
     }
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final Map<String, String[]> formattedParams = new ConcurrentHashMap<>();
+    filterChain.doFilter(
+        new HttpServletRequestWrapper(request) {
+          @Override
+          public String getParameter(String name) {
+            return formattedParams.containsKey(name) ? formattedParams.get(name)[0] : null;
+          }
 
-        for (String param : request.getParameterMap().keySet()) {
-            String formattedParam = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, param);
-            formattedParams.put(formattedParam, request.getParameterValues(param));
-        }
+          @Override
+          public Enumeration<String> getParameterNames() {
+            return Collections.enumeration(formattedParams.keySet());
+          }
 
-        filterChain.doFilter(new HttpServletRequestWrapper(request) {
-            @Override
-            public String getParameter(String name) {
-                return formattedParams.containsKey(name) ? formattedParams.get(name)[0] : null;
-            }
+          @Override
+          public String[] getParameterValues(String name) {
+            return formattedParams.get(name);
+          }
 
-            @Override
-            public Enumeration<String> getParameterNames() {
-                return Collections.enumeration(formattedParams.keySet());
-            }
-
-            @Override
-            public String[] getParameterValues(String name) {
-                return formattedParams.get(name);
-            }
-
-            @Override
-            public Map<String, String[]> getParameterMap() {
-                return formattedParams;
-            }
-        }, response);
-    }
-
+          @Override
+          public Map<String, String[]> getParameterMap() {
+            return formattedParams;
+          }
+        },
+        response);
+  }
 }

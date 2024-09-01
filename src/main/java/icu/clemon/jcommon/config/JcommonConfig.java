@@ -9,11 +9,8 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 @Data
 public class JcommonConfig {
 
-    public static final String PREFIX = "jcommon";
+  public static final String PREFIX = "jcommon";
 
-    /**
-     * Enumerator config
-     */
-    @NestedConfigurationProperty
-    private Config enumerator = new Config();
+  /** Enumerator config */
+  @NestedConfigurationProperty private Config enumerator = new Config();
 }

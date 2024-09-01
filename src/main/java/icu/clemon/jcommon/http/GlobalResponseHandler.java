@@ -12,27 +12,35 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
-    @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        var clz = returnType.getParameterType();
-        ResponseWrapper responseWrapperAnno = returnType.getAnnotatedElement().getAnnotation(ResponseWrapper.class);
+  @Override
+  public boolean supports(
+      MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+    var clz = returnType.getParameterType();
+    ResponseWrapper responseWrapperAnno =
+        returnType.getAnnotatedElement().getAnnotation(ResponseWrapper.class);
 
-        var f1 = clz.isAssignableFrom(Result.class);
-        var f2 = clz.isAssignableFrom(PageResult.class);
-        var f3 = false;
-        if (responseWrapperAnno != null ) {
-            f3 = !responseWrapperAnno.enabled();
-        }
-        return !(f1 || f2 || f3);
+    var f1 = clz.isAssignableFrom(Result.class);
+    var f2 = clz.isAssignableFrom(PageResult.class);
+    var f3 = false;
+    if (responseWrapperAnno != null) {
+      f3 = !responseWrapperAnno.enabled();
+    }
+    return !(f1 || f2 || f3);
+  }
+
+  @Override
+  public Object beforeBodyWrite(
+      Object body,
+      MethodParameter returnType,
+      MediaType selectedContentType,
+      Class<? extends HttpMessageConverter<?>> selectedConverterType,
+      ServerHttpRequest request,
+      ServerHttpResponse response) {
+
+    if (body instanceof Page<?> page) {
+      return PageResult.of(page);
     }
 
-    @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-
-        if (body instanceof Page<?> page) {
-            return PageResult.of(page);
-        }
-
-        return Result.success(body);
-    }
+    return Result.success(body);
+  }
 }

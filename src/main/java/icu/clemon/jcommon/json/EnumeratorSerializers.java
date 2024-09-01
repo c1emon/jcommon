@@ -1,5 +1,7 @@
 package icu.clemon.jcommon.json;
 
+import static icu.clemon.jcommon.http.ResultCode.IllegalArgument;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.*;
@@ -7,13 +9,10 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import icu.clemon.jcommon.config.JcommonConfig;
 import icu.clemon.jcommon.exception.APIException;
 import icu.clemon.jcommon.types.Enumerator;
-import lombok.RequiredArgsConstructor;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static icu.clemon.jcommon.http.ResultCode.IllegalArgument;
+import lombok.RequiredArgsConstructor;
 
 public class EnumeratorSerializers {
 

@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 public class JacksonAutoConfiguration {
 
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer commonJackson2ObjectMapperBuilderCustomizer() {
-        return new CommonJackson2ObjectMapperBuilderCustomizer();
-    }
-
+  @Bean
+  public Jackson2ObjectMapperBuilderCustomizer commonJackson2ObjectMapperBuilderCustomizer() {
+    return new CommonJackson2ObjectMapperBuilderCustomizer();
+  }
 }

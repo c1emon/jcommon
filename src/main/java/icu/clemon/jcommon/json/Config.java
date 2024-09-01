@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class Config {
 
-    /**
-     * should serialize Enumerator with desc
-     */
-    private boolean serializeWithDesc = false;
+  /** should serialize Enumerator with desc */
+  private boolean serializeWithDesc = false;
 }

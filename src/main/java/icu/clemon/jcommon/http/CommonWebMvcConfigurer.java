@@ -13,16 +13,18 @@ import java.util.List;
 @AllArgsConstructor
 public class CommonWebMvcConfigurer implements WebMvcConfigurer {
 
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        WebMvcConfigurer.super.configureMessageConverters(converters);
-        // remove default string converter
-        converters.removeIf(httpMessageConverter -> httpMessageConverter.getClass().equals(StringHttpMessageConverter.class));
-    }
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    WebMvcConfigurer.super.configureMessageConverters(converters);
+    // remove default string converter
+    converters.removeIf(
+        httpMessageConverter ->
+            httpMessageConverter.getClass().equals(StringHttpMessageConverter.class));
+  }
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        WebMvcConfigurer.super.addFormatters(registry);
-        registry.addConverter(new EnumeratorConverter());
-    }
+  @Override
+  public void addFormatters(FormatterRegistry registry) {
+    WebMvcConfigurer.super.addFormatters(registry);
+    registry.addConverter(new EnumeratorConverter());
+  }
 }

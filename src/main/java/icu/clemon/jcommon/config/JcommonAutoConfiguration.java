@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 public class JcommonAutoConfiguration {
 
-    @Bean
-    public JcommonConfig jcommonConfig() {
-        return new JcommonConfig();
-    }
+  @Bean
+  public JcommonConfig jcommonConfig() {
+    return new JcommonConfig();
+  }
 }
