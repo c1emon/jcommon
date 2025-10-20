@@ -2,8 +2,9 @@ plugins {
     id 'org.springframework.boot' version '3.5.6'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'java-library'
-    id 'maven-publish'
-    id 'signing'
+    id 'org.kordamp.gradle.java-project' version '0.47.0'
+    id 'org.jreleaser' version '1.20.0'
+//    id 'signing'
     id 'com.palantir.git-version' version '4.0.0'
 }
 
@@ -67,65 +68,117 @@ jar {
     enabled = true
 }
 
-publishing {
-    publications {
-        Production(MavenPublication) {
-            from components.java
+//publishing {
+//    publications {
+//        Production(MavenPublication) {
+//            from components.java
+//
+//            groupId = project.group
+//            artifactId = project.name
+//            version = project.version
+//
+//            versionMapping {
+//                usage('java-api') {
+//                    fromResolutionOf('runtimeClasspath')
+//                }
+//                usage('java-runtime') {
+//                    fromResolutionResult()
+//                }
+//            }
+//
+//            pom {
+//                name = project.name
+//                description = 'Common lib of Spring Web App'
+//                url = 'https://github.com/c1emon/jcommon'
+//
+//                licenses {
+//                    license {
+//                        name = "MIT Licence"
+//                        url = "https://www.mit.edu/~amini/LICENSE.md"
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id = "clemon"
+//                        name = "Clemon Chan"
+//                        email = "cjw7360chen@gmail.com"
+//                    }
+//                }
+//
+//                scm {
+//                    connection = "https://github.com/c1emon/jcommon"
+//                    developerConnection = "git@github.com:c1emon/jcommon.git"
+//                    url = "https://github.com/c1emon/jcommon.git"
+//                }
+//            }
+//        }
+//    }
+//    repositories {
+//        maven {
+//            // https://central.sonatype.org/publish/publish-guide/#releasing-to-central
+//            url = project.version.endsWith("SNAPSHOT") ? "https://s01.oss.sonatype.org/content/repositories/snapshots/" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+//            credentials {
+//                // from gradle.properties
+//                username = ossrhUsername
+//                password = ossrhPassword
+//            }
+//        }
+//    }
+//}
+//signing {
+//    sign publishing.publications.Production
+//}
 
-            groupId = project.group
-            artifactId = project.name
-            version = project.version
+config {
+    info {
+        name          = 'app'
+        description   = 'App'
+        inceptionYear = '2021'
+        vendor        = 'Acme'
 
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
+        links {
+            website      = 'https://acme.com/app'
+            issueTracker = 'https://github.com/duke/app/issues'
+            scm          = 'https://github.com/duke/app.git'
+        }
 
-            pom {
-                name = project.name
-                description = 'Common lib of Spring Web App'
-                url = 'https://github.com/c1emon/jcommon'
+        scm {
+            url                 = 'https://github.com/duke/app'
+            connection          = 'scm:git:https://github.com/duke/app.git'
+            developerConnection = 'scm:git:git@github.com:duke/app.git'
+        }
 
-                licenses {
-                    license {
-                        name = "MIT Licence"
-                        url = "https://www.mit.edu/~amini/LICENSE.md"
-                    }
-                }
-
-                developers {
-                    developer {
-                        id = "clemon"
-                        name = "Clemon Chan"
-                        email = "cjw7360chen@gmail.com"
-                    }
-                }
-
-                scm {
-                    connection = "https://github.com/c1emon/jcommon"
-                    developerConnection = "git@github.com:c1emon/jcommon.git"
-                    url = "https://github.com/c1emon/jcommon.git"
-                }
+        people {
+            person {
+                id    = 'duke'
+                name  = 'Java Duke'
+                roles = ['developer', 'author']
             }
         }
     }
-    repositories {
-        maven {
-            // https://central.sonatype.org/publish/publish-guide/#releasing-to-central
-            url = project.version.endsWith("SNAPSHOT") ? "https://s01.oss.sonatype.org/content/repositories/snapshots/" : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            credentials {
-                // from gradle.properties
-                username = ossrhUsername
-                password = ossrhPassword
+
+    licensing {
+        licenses {
+            license {
+                id = 'Apache-2.0'
             }
         }
     }
 }
 
-signing {
-    sign publishing.publications.Production
+jreleaser {
+    release {
+        github {
+            repoOwner = 'duke'
+            overwrite = true
+        }
+    }
+    distributions {
+        app {
+            artifact {
+                path = 'build/distributions/{{distributionName}}-{{projectVersion}}.zip'
+            }
+        }
+    }
 }
