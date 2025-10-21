@@ -48,7 +48,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'icu.clemon:jcommon:v1.3.4-1-g28cbbcc.dirty'
+	implementation 'icu.clemon:jcommon:1.4.0'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
