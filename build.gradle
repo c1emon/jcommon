@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'icu.clemon'
-version = gitVersion()
+version = gitVersion().replaceAll("^v", "")
 
 ext {
     set('springCloudVersion', "2025.0.0")
