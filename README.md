@@ -14,7 +14,7 @@ Spring 基础项目依赖
 
 ### 1. 注册账号
 
-在https://central.sonatype.com/使用真实的邮箱注册一个账号
+在[Maven中央仓库](https://central.sonatype.com/)使用真实的邮箱注册一个账号
 
 ### 2. 创建Namespace
 
